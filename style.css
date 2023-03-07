@@ -56,11 +56,6 @@ a:hover{
     background-color: lightblue;
 }
 
-img {
-	max-width: 100%;
-	height: auto;
-}
-
 .topnav {
 	overflow: hidden;
 	padding-top: 5px;
@@ -139,6 +134,28 @@ img {
 .dropdown:hover .dropdown-content {
 	display: block;
 }
+  
+.card{
+	width: 287px;
+	height: 200px;
+	margin: 20px;
+	border-radius: 10px;
+  
+}
+  
+.lightblue{
+	background-color: lightblue ;
+	display: inline-block;
+	border-style: solid;
+	border-color: black;
+}
+  
+.lightgrey{
+	background-color: lightgrey;
+	display: inline-block;
+	border-style: solid;
+	border-color: black;
+}
 
 table{
 	color: white;
@@ -201,7 +218,6 @@ table{
 	text-align: center;
 }
 
-
 @media screen and (max-width: 980px){
 	.topnav a:not(:first-child), .dropdown .dropbtn{display: none;}
 	.topnav a.icon{
@@ -236,5 +252,4 @@ table{
 		width: 100%;
 		text-align: left;
 	}
-
 }
