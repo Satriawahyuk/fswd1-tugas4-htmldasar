@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Picture</title>
+    <title>Form</title>
     <link rel="shortcut icon" href="assets/images/Expressent_-_Copy_2_-picsay-removebg-preview_-_Copy-removebg-preview - Copy.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
@@ -35,11 +35,38 @@
     <a href="javascript:void(0);" style="font-size: 15px" class="icon" onclick="myFunction()">&#9776;</a>
 </div>
 
-<p><center>Profile Pict</center></p>
-			<center><img src = "assets/images/Expressent_-_Copy_2_-picsay-removebg-preview_-_Copy-removebg-preview - Copy.png" style="width: 500px; height: 500px;"></center>
-<br>
-            <p><center>Mitra Pict</center></p>
-			<center><img src = "assets/images/mitra_5b49ac6c-35f1-4aba-a575-44683b6128f6.png" style="width: 500px; height: 500px;"></center>
+<h3 style="text-align: center;">Form Pendaftaran SIB 2023</h3>
+			<form>
+				<label>Nama Lengkap :</label>
+				<input type="text" name"Nama">
+				
+                <label>Email :</label>
+				<input type="email" name"Email">
+
+                <label>No HP :</label>
+				<input type="number" name"No Telp">
+				
+				<label>Jenis Kelamin :</label>
+				<input type="radio" name"Jenis" value="Laki-Laki">Laki-Laki
+				<input type="radio" name"Jenis" value="Perempuan">Perempuan
+				
+                <label>Jurusan:</label>
+				<select name="Prodi">
+					<option value="SI">Sistem Informasi</option>
+					<option value="TI">Teknik Informatika</option>
+                    <option value="MI">Manajemen Informatika</option>
+					<option value="RPL">Rekayasa Perangkat Lunak</option>
+				</select>
+
+                <label>Alamat:</label>
+				<textarea name"Alamat" rows ="10" cols="10"></textarea>
+
+                <label for="foto">Foto</label><br>
+                <input type="file" name="foto" id="foto" accept=".jpg, .jpeg, .png">
+				
+				<center><input type="submit" name"submit" value="Daftar"></center>
+				
+			</form>
 
 <footer style ="padding: 10px; background-color: #5F9EA0; text-align: center;">
     <p>Copyright &copy; Satria Wahyu Kurniawan_4211161 </p>
