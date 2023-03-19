@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Javascript Document Object Model</title>
+    <link rel="shortcut icon" href="assets/images/Expressent_-_Copy_2_-picsay-removebg-preview_-_Copy-removebg-preview - Copy.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="style.css">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous" />
+
+<body style="background-color: grey">
+
+<header style="width: 100%; height:max-content; background-color: white;">
+    <center><img src ="assets/images/Expressent_-_Copy_2_-picsay-removebg-preview_-_Copy-removebg-preview.png"></center>
+</header>
+
+<div class="topnav" id="myTopnav">
+    <a href="index.html">Dashboard</a>
+    <div class="dropdown">
+        <button class="dropbtn">
+            Media <i class="fa fa-caret-down"></i></button>
+            <div class="dropdown-content">
+                <a href="images.html">Picture</a>
+                <a href="audios.html">Music</a>
+                <a href="videos.html">Video</a>
+            </div>
+    </div>
+    <a href="form.html">Form</a>
+    <a href="table.html">Tabel</a>
+    <a href="gallery.html">Gallery</a>
+    <div class="dropdown">
+        <button class="dropbtn">
+            Layout <i class="fa fa-caret-down"></i></button>
+            <div class="dropdown-content">
+                <a href="grid.html">Layout Grid</a>
+                <a href="flex.html">Layout Flexbox</a>
+            </div>
+    </div>
+    <div class="dropdown">
+        <button class="dropbtn">
+            Javascript <i class="fa fa-caret-down"></i></button>
+            <div class="dropdown-content">
+                <a href="jscodestructure.html">Code Structure</a>
+                <a href="jsconditional.html">Conditional</a>
+                <a href="jsdatatypes.html">Data Types</a>
+                <a href="jsoperator.html">Operator</a>
+                <a href="jspopup.html">PopUp</a>
+                <a href="jstypeconversion.html">Type Convertion</a>
+                <a href="jsvariables.html">Variables</a>
+                <a href="datamahasiswa.html">Search Data Mahasiswa</a>
+                <a href="jsdocumentobjectmodel.html">Document Object Model</a>
+                <a href="switchjankenpon.html">Switch JanKenPon</a>
+            </div>
+    </div>
+    <a href="javascript:void(0);" style="font-size: 15px" class="icon" onclick="myFunction()">&#9776;</a>
+</div>
+
+<body>
+  <div class="jumbotron mt-4 mx-4 p-5 bg-primary text-white rounded">
+    <h1 class="text-center">Task Management</h1>
+    <br /><br />
+
+    <div class="input-group">
+      <input id="myinput" type="text" class="form-control" placeholder="Masukkan tugas anda" />
+      <button class="btn bg-success p-2 text-white bg-opacity-75" id="btn" type="button">
+        Tambahkan
+      </button>
+    </div>
+  </div>
+  <br />
+
+  <div class="alert-container mx-4 mt-3"></div>
+
+  <footer style ="padding: 10px; background-color: #5F9EA0; text-align: center;">
+		<p>Copyright &copy; Satria Wahyu Kurniawan_4211161 </p>
+	</footer>
+
+<script type="text/javascript">
+  function myFunction(){
+          var x = document.getElementById("myTopnav");
+          if (x.className === "topnav") {
+              x.className += " responsive";
+          }else {
+              x.className = "topnav";
+          }
+  }
+
+const input = document.getElementById("myinput");
+const toggle = document.getElementById("btn");
+const alertContainer = document.querySelector(".alert-container");
+
+const savedTasks = localStorage.getItem("tasks");
+if (savedTasks) {
+  alertContainer.innerHTML = savedTasks;
+}
+
+toggle.addEventListener("click", function () {
+  const task = input.value;
+  const alertMsg = `
+    <div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
+      ${task}
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+  `;
+  alertContainer.innerHTML += alertMsg;
+  input.value = "";
+
+  localStorage.setItem("tasks", alertContainer.innerHTML);
+
+  const alerts = alertContainer.querySelectorAll(".alert");
+  alerts.forEach((alert) => {
+    alert.addEventListener("click", function () {
+      alert.classList.toggle("text-decoration-line-through");
+    });
+  });
+
+  const closeButtons = alertContainer.querySelectorAll(".btn-close");
+  closeButtons.forEach((button) => {
+    button.addEventListener("click", function () {
+      const alert = button.parentElement;
+      alert.remove();
+      localStorage.setItem("tasks", alertContainer.innerHTML);
+    });
+  });
+});
+
+window.addEventListener("load", function () {
+  const alerts = alertContainer.querySelectorAll(".alert");
+  alerts.forEach((alert) => {
+    alert.addEventListener("click", function () {
+      alert.classList.toggle("text-decoration-line-through");
+    });
+  });
+
+  const closeButtons = alertContainer.querySelectorAll(".btn-close");
+  closeButtons.forEach((button) => {
+    button.addEventListener("click", function () {
+      const alert = button.parentElement;
+      alert.remove();
+      localStorage.setItem("tasks", alertContainer.innerHTML);
+    });
+  });
+});
+
+</script>
+
+</body>
+
+</html>

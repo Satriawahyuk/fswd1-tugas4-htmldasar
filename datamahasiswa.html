@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Searh Data Mahasiswa</title>
+    <link rel="shortcut icon" href="assets/images/Expressent_-_Copy_2_-picsay-removebg-preview_-_Copy-removebg-preview - Copy.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="style.css">
+
+<body style="background-color: grey">
+
+<header style="width: 100%; height:max-content; background-color: white;">
+    <center><img src ="assets/images/Expressent_-_Copy_2_-picsay-removebg-preview_-_Copy-removebg-preview.png"></center>
+</header>
+
+<div class="topnav" id="myTopnav">
+    <a href="index.html">Dashboard</a>
+    <div class="dropdown">
+        <button class="dropbtn">
+            Media <i class="fa fa-caret-down"></i></button>
+            <div class="dropdown-content">
+                <a href="images.html">Picture</a>
+                <a href="audios.html">Music</a>
+                <a href="videos.html">Video</a>
+            </div>
+    </div>
+    <a href="form.html">Form</a>
+    <a href="table.html">Tabel</a>
+    <a href="gallery.html">Gallery</a>
+    <div class="dropdown">
+        <button class="dropbtn">
+            Layout <i class="fa fa-caret-down"></i></button>
+            <div class="dropdown-content">
+                <a href="grid.html">Layout Grid</a>
+                <a href="flex.html">Layout Flexbox</a>
+            </div>
+    </div>
+    <div class="dropdown">
+        <button class="dropbtn">
+            Javascript <i class="fa fa-caret-down"></i></button>
+            <div class="dropdown-content">
+                <a href="jscodestructure.html">Code Structure</a>
+                <a href="jsconditional.html">Conditional</a>
+                <a href="jsdatatypes.html">Data Types</a>
+                <a href="jsoperator.html">Operator</a>
+                <a href="jspopup.html">PopUp</a>
+                <a href="jstypeconversion.html">Type Convertion</a>
+                <a href="jsvariables.html">Variables</a>
+                <a href="datamahasiswa.html">Search Data Mahasiswa</a>
+                <a href="jsdocumentobjectmodel.html">Document Object Model</a>
+                <a href="switchjankenpon.html">Switch JanKenPon</a>
+            </div>
+    </div>
+    <a href="javascript:void(0);" style="font-size: 15px" class="icon" onclick="myFunction()">&#9776;</a>
+</div>
+
+    <body>
+
+    <script src="data_mahasiswa.js">
+    
+        function myFunction(){
+            var x = document.getElementById("myTopnav");
+            if (x.className === "topnav") {
+                x.className += " responsive";
+            }else {
+                x.className = "topnav";
+            }
+        }
+
+    function splitgender(arr){
+        //olah data berdasarkan gender
+        const malemhs = mahasiswa.filter(getmalemhs);
+        const femalemhs = mahasiswa.filter(getfemalemhs);
+
+        function getmalemhs(value, index, array){
+            return value.gender == "M";
+        }
+
+        function getfemalemhs(value, index, array){
+            return value.gender == "F";
+        }
+
+        //mencari banyaknya data dari masing masing gender
+        const malemhscount = malemhs.length;
+        const femalemhscount = femalemhs.length;
+
+
+        //olah nilai
+
+        const malemhsscore = malemhs.map(getmalemhsscore);
+        const femalemhsscore = femalemhs.map(getfemalemhsscore);
+
+        function getmalemhsscore(value){
+            return value.score ;
+        }
+        function getfemalemhsscore(value){
+            return value.score; 
+        }
+
+        //penjumlahan male
+        const summalevalue = malemhsscore.reduce(summale, 0);
+
+        function summale(total, value) {
+            return total + value;
+        }
+
+        //pembagian (average) male
+        const malemhsavg = summalevalue / malemhsscore.length;
+
+        // max and min male
+        maxmalevalue = Math.max(...malemhsscore);
+        minmalevalue = Math.min(...malemhsscore);
+
+
+
+        //penjumlahan female
+        const sumfemalevalue = femalemhsscore.reduce(sumfemale, 0);
+
+        function sumfemale(total, value) {
+            return total + value;
+        }
+
+        //pembagian (average) female
+        const femalemhsavg = sumfemalevalue / femalemhsscore.length;
+
+        // max and min male
+        maxfemalevalue = Math.max(...femalemhsscore);
+        minfemalevalue = Math.min(...femalemhsscore);
+
+
+        //hasil akh
+        const result = {
+            female: {
+               count : femalemhscount,
+
+               score: {
+                    sum : sumfemalevalue,
+                    average : femalemhsavg,
+                    max : maxfemalevalue,
+                    min : minfemalevalue,
+                    datanilaifm : femalemhsscore
+               },
+
+               students: {
+                femalemhs
+               }
+            },
+            male: {
+                count: malemhscount,
+
+                score :{
+                    sum : summalevalue,
+                    average : malemhsavg,
+                    max : maxmalevalue,
+                    min : minmalevalue,
+                    datanilaim : malemhsscore
+                },
+
+                students: {
+                    malemhs
+
+               }
+            }
+        }
+
+        return result;
+    }
+
+
+    const hasilakh = splitgender(mahasiswa);
+    console.log(hasilakh);
+    </script>
+  </body>
+  <footer style ="padding: 10px; background-color: #5F9EA0; text-align: center;">
+    <p>Copyright &copy; Satria Wahyu Kurniawan_4211161 </p>
+</footer>
+</html>
