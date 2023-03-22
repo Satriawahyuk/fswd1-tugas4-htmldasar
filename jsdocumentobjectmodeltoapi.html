@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Javascript Document Object Model</title>
+    <title>Javascript Document Object Model to API</title>
     <link rel="shortcut icon" href="assets/images/Expressent_-_Copy_2_-picsay-removebg-preview_-_Copy-removebg-preview - Copy.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
@@ -60,40 +60,48 @@
     <a href="javascript:void(0);" style="font-size: 15px" class="icon" onclick="myFunction()">&#9776;</a>
 </div>
 
-  <div class="jumbotron mt-4 mx-4 p-5 bg-primary text-white rounded">
-    <h1 style="text-align: center;">Task Management</h1>
-    <br /><br />
+    <div class="jumbotron mt-4 mx-4 p-5 bg-primary text-white rounded">
+        <h1 style="text-align: center;">Task Management</h1>
+      <br /><br />
 
-    <div class="input-group">
-      <input id="myinput" type="text" class="form-control" placeholder="Silahkan masukkan tugas anda" />
-      <button class="btn bg-success p-2 text-white bg-opacity-75" id="btn" type="button">
-        Tambahkan
-      </button>
+      <div class="input-group">
+        <input
+          id="myinput"
+          type="text"
+          class="form-control"
+          placeholder="Silahkan masukkan tugas anda"
+        />
+        <button
+          class="btn bg-success p-2 text-white bg-opacity-75"
+          id="btn"
+          type="button"
+        >
+          Tambahkan
+        </button>
+      </div>
     </div>
-  </div>
-  <br />
+    <br />
 
-  <div class="alert-container mx-4 mt-3"></div>
+    <div class="alert-container mx-4 mt-3"></div>
 
-<script type="text/javascript">
-  function myFunction(){
-          var x = document.getElementById("myTopnav");
-          if (x.className === "topnav") {
-              x.className += " responsive";
-          }else {
-              x.className = "topnav";
-          }
-  }
-</script>
+    <footer style ="padding: 10px; background-color: #5F9EA0; text-align: center;">
+        <p>Copyright &copy; Satria Wahyu Kurniawan_4211161 </p>
+    </footer>
 
-  <footer style ="padding: 10px; background-color: #5F9EA0; text-align: center;">
-		<p>Copyright &copy; Satria Wahyu Kurniawan_4211161 </p>
-	</footer>
-
-<script>
+    <script type="text/javascript">
+        function myFunction(){
+                var x = document.getElementById("myTopnav");
+                if (x.className === "topnav") {
+                    x.className += " responsive";
+                }else {
+                    x.className = "topnav";
+                }
+        }
+       
 const input = document.getElementById("myinput");
 const toggle = document.getElementById("btn");
 const alertContainer = document.querySelector(".alert-container");
+const apiUrl = "https://crudcrud.com/api/b56a0b78d37341ecac67dff50c00be23/tasks";
 
 const savedTasks = localStorage.getItem("tasks");
 if (savedTasks) {
@@ -103,7 +111,7 @@ if (savedTasks) {
 toggle.addEventListener("click", function () {
   const task = input.value;
   const alertMsg = `
-    <div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
+    <div class="alert alert-success alert-dismissible fade show mt-3" role="alert" data-id="">
       ${task}
       <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
@@ -115,7 +123,16 @@ toggle.addEventListener("click", function () {
 
   const alerts = alertContainer.querySelectorAll(".alert");
   alerts.forEach((alert) => {
-    alert.addEventListener("click", function () {
+    alert.addEventListener("click", function (event) {
+      const alertId = event.target.closest(".alert").getAttribute("data-id");
+      if (alertId) {
+        fetch(`${apiUrl}/${alertId}`, {
+          method: "DELETE",
+        })
+          .then((response) => response.json())
+          .then((data) => console.log(data))
+          .catch((error) => console.log(error));
+      }
       alert.classList.toggle("text-decoration-line-through");
     });
   });
@@ -124,32 +141,64 @@ toggle.addEventListener("click", function () {
   closeButtons.forEach((button) => {
     button.addEventListener("click", function () {
       const alert = button.parentElement;
+      const alertId = alert.getAttribute("data-id");
+      if (alertId) {
+        fetch(`${apiUrl}/${alertId}`, {
+          method: "DELETE",
+        })
+          .then((response) => response.json())
+          .then((data) => console.log(data))
+          .catch((error) => console.log(error));
+      }
       alert.remove();
       localStorage.setItem("tasks", alertContainer.innerHTML);
     });
   });
+  fetch(apiUrl, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      task: task
+    }),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data);
+      const newAlert = alertContainer.querySelector(`[data-id=""]`);
+      newAlert.setAttribute("data-id", data._id);
+    })
+    .catch((error) => console.log(error));
 });
 
 window.addEventListener("load", function () {
   const alerts = alertContainer.querySelectorAll(".alert");
   alerts.forEach((alert) => {
-    alert.addEventListener("click", function () {
+    alert.addEventListener("click", function (event) {
+      const alertId = event.target.closest(".alert").getAttribute("data-id");
+      if (alertId) {
+        fetch(`${apiUrl}/${alertId}`, {
+          method: "DELETE",
+        })
+          .then((response) => response.json())
+          .then((data) => console.log(data))
+          .catch((error) => console.log(error));
+      }
       alert.classList.toggle("text-decoration-line-through");
     });
   });
 
   const closeButtons = alertContainer.querySelectorAll(".btn-close");
-  closeButtons.forEach((button) => {
-    button.addEventListener("click", function () {
-      const alert = button.parentElement;
-      alert.remove();
-      localStorage.setItem("tasks", alertContainer.innerHTML);
-    });
-  });
-});
+        closeButtons.forEach((button) => {
+          button.addEventListener("click", function () {
+            const alert = button.parentElement;
+            alert.remove();
+            localStorage.setItem("tasks", alertContainer.innerHTML);
+          });
+        });
+      });
 
-</script>
-
-</body>
-
+    </script>
+  </body>
 </html>
